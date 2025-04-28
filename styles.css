@@ -670,3 +670,31 @@ footer {
   width: 20px;
   height: 20px;
 }
+
+
+/* 懒加载图片样式 */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+  min-height: 1px;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* 图片加载中的占位样式 */
+.project-image .lazy-image:not(.loaded),
+.profile-image .lazy-image:not(.loaded),
+.edu-logo .lazy-image:not(.loaded) {
+  background-color: #eee;
+  background-image: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
