@@ -1,48 +1,67 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // 导航高亮处理
-  const navLinks = document.querySelectorAll('nav a');
-  const sections = document.querySelectorAll('.section');
-  
-  function highlightNav() {
-    const scrollPosition = window.scrollY;
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-      
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
-      }
+  // 标签页切换
+  const navLinks = Array.from(document.querySelectorAll('nav a'));
+  const sections = Array.from(document.querySelectorAll('.section'));
+
+  if (navLinks.length === 0 || sections.length === 0) {
+    throw new Error(
+      `tab navigation requires at least one nav link and one .section, ` +
+      `got ${navLinks.length} nav links and ${sections.length} sections`
+    );
+  }
+
+  // 隐藏的面板不会触发 IntersectionObserver，切换时手动加载其中的图片
+  function loadImagesIn(section) {
+    section.querySelectorAll('.lazy-image[data-src]').forEach(img => {
+      img.src = img.getAttribute('data-src');
+      img.onload = () => img.classList.add('loaded');
+      img.removeAttribute('data-src');
     });
   }
-  
-  // 滚动时高亮导航
-  window.addEventListener('scroll', highlightNav);
-  
-  // 初始化时执行一次高亮
-  highlightNav();
-  
-  // 平滑滚动
+
+  function activateTab(id) {
+    const target = sections.find(section => section.id === id);
+    if (!target) {
+      throw new Error(
+        `no .section found with id ${JSON.stringify(id)}; ` +
+        `available ids: ${sections.map(s => s.id).join(', ')}`
+      );
+    }
+
+    sections.forEach(section => {
+      section.classList.toggle('active', section === target);
+    });
+
+    navLinks.forEach(link => {
+      const isActive = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('active', isActive);
+      link.setAttribute('aria-selected', String(isActive));
+    });
+
+    loadImagesIn(target);
+  }
+
   navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       e.preventDefault();
-      
-      const targetId = this.getAttribute('href');
-      const targetSection = document.querySelector(targetId);
-      
-      window.scrollTo({
-        top: targetSection.offsetTop - 80,
-        behavior: 'smooth'
-      });
+      const id = this.getAttribute('href').slice(1);
+      activateTab(id);
+      history.replaceState(null, '', `#${id}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
-  
+
+  const initialId = window.location.hash.slice(1);
+  activateTab(sections.some(s => s.id === initialId) ? initialId : sections[0].id);
+
+  window.addEventListener('hashchange', () => {
+    const id = window.location.hash.slice(1);
+    if (sections.some(s => s.id === id)) {
+      activateTab(id);
+    }
+  });
+
+
   // 动画效果 - 滚动显示元素
   const observerOptions = {
     threshold: 0.1,

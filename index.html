@@ -16,10 +16,16 @@
                 </div>
                 <div class="profile-info">
                     <h1>Bowen Ping <span class="chinese-name">平博文</span></h1>
+                    <p class="profile-bio">
+                        PhD Student at <span class="accent">Xi'an Jiaotong University</span>.
+                    </p>
+                    <p class="profile-subbio">
+                        Is AGI a commonwealth of abundance, or a new aristocracy of compute?
+                    </p>
                     <div class="social-links">
-                        <a href="https://github.com/Jayce-Ping" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="mailto:jayceping6@gmail.com"><i class="fas fa-envelope"></i></a>
-                        <a href="https://community.wolfram.com/web/315229706" target="_blank" class="wolfram-link">
+                        <a href="https://github.com/Jayce-Ping" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:jayceping6@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://community.wolfram.com/web/315229706" target="_blank" class="wolfram-link" aria-label="Wolfram Community">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="./img/wolfram-logo.svg" class="wolfram-icon lazy-image" alt="Wolfram Community">
                         </a>
                     </div>
@@ -28,39 +34,15 @@
         </header>
 
         <nav>
-            <ul>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#recreations">Recreations</a></li>
+            <ul role="tablist">
+                <li><a href="#projects" role="tab" aria-selected="true" aria-controls="projects">Projects</a></li>
+                <li><a href="#education" role="tab" aria-selected="false" aria-controls="education">Education</a></li>
+                <li><a href="#recreations" role="tab" aria-selected="false" aria-controls="recreations">Recreations</a></li>
             </ul>
         </nav>
 
         <main>
-            <section id="education" class="section">
-                <h2>Education</h2>
-                <div class="education-container">
-                    <div class="education-item">
-                        <div class="edu-logo">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="./img/xjtulogo.png" alt="XJTU Logo" class="lazy-image" />
-                        </div>
-                        <div class="edu-details">
-                            <h3>Xi'an Jiaotong University</h3>
-                            <div class="edu-degrees">
-                                <div class="degree-item">
-                                    <p class="degree">PhD Student in Computer Science and Technology</p>
-                                    <span class="year">2024 - Current</span>
-                                </div>
-                                <div class="degree-item">
-                                    <p class="degree">Bachelor's in Computer Science and Technology</p>
-                                    <span class="year">2020 - 2024</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="projects" class="section">
+            <section id="projects" class="section" role="tabpanel">
                 <h2>Projects</h2>
                 <div class="projects-grid">
                     <div class="project-card">
@@ -107,7 +89,31 @@
                     </div>
                 </div>
             </section>
-            <section id="recreations" class="section">
+            <section id="education" class="section" role="tabpanel">
+                <h2>Education</h2>
+                <div class="education-container">
+                    <div class="education-item">
+                        <div class="edu-logo">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="./img/xjtulogo.png" alt="XJTU Logo" class="lazy-image" />
+                        </div>
+                        <div class="edu-details">
+                            <h3>Xi'an Jiaotong University</h3>
+                            <div class="edu-degrees">
+                                <div class="degree-item">
+                                    <p class="degree">PhD Student in Computer Science and Technology</p>
+                                    <span class="year">2024 - Current</span>
+                                </div>
+                                <div class="degree-item">
+                                    <p class="degree">Bachelor's in Computer Science and Technology</p>
+                                    <span class="year">2020 - 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recreations" class="section" role="tabpanel">
                 <h2>Recreational Projects</h2>
                 <div class="projects-grid">
                     <div class="project-card">
@@ -186,7 +192,7 @@
         </main>
 
         <footer>
-            <p>&copy; 2025 Bowen Ping (平博文). All rights reserved.</p>
+            <p>&copy; 2026 Bowen Ping (平博文). All rights reserved.</p>
         </footer>
     </div>
 
